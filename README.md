@@ -12,16 +12,16 @@ The rule is simple: a notebook should not be a loose dump of cells. Each project
 | --- | --- | --- |
 | [GLP-1 Bayesian pharmacovigilance](notebooks/glp1-bayesian-farmacovigilancia/) | Semaglutide vs Tirzepatide adverse-event reports from openFDA/FAERS, modeled with a Beta-Binomial approach | Published |
 
-## Two simple projects to add next
+## Two serious data science projects to add next
 
-I want the next notebooks to move away from health analytics. That keeps this repo broader and gives the LinkedIn posts a different flavor from my main portfolio work.
+I want the next notebooks to move away from health analytics and show heavier data science work: causal questions, uncertainty, model diagnostics, and results that can be defended.
 
 | Project idea | Why it works | Main visuals |
 | --- | --- | --- |
-| **City cost of living snapshot** | Public data, easy story, good for quick comparisons between cities. The report can answer: where does monthly cost concentrate, and what changes if rent or groceries move? | City ranking bar chart, cost breakdown stacked bar, scatter of rent vs total cost |
-| **Labor market salary snapshot** | Useful for career and business audiences. The report can compare roles, seniority, remote policy, and salary bands without turning into a complex ML project. | Salary distribution, role ranking, remote vs onsite comparison, seniority heatmap |
+| **Remote work salary premium: causal inference** | A strong labor-market question: after controlling for role, seniority, country, company size, and tech stack, does remote work still carry a salary premium or penalty? This can use matching, inverse probability weighting, doubly robust estimation, quantile effects, and sensitivity checks. | Covariate balance plot, treatment effect with confidence intervals, effect by seniority, salary distribution before/after adjustment |
+| **Market regime detection: crypto or equities** | A proper time-series project: identify market regimes from returns, volatility, drawdown, and volume. This can use Hidden Markov Models, Bayesian change-point detection, GARCH-style volatility features, and out-of-sample regime validation. | Regime-colored price chart, transition matrix heatmap, volatility by regime, drawdown/risk table |
 
-Both should be built as report-style notebooks: one clean narrative, 3 to 5 charts saved as images, and a README that shows the actual results without making someone open Jupyter first.
+Both should be built as report-style notebooks: one clean narrative, 4 to 6 charts saved as images, model diagnostics, and a README that shows the actual results without making someone open Jupyter first.
 
 ## README-report format
 
@@ -31,10 +31,11 @@ Each project README should work like a small report:
 1. One-paragraph question
 2. 3-bullet result summary
 3. Main chart image
-4. Short method note
-5. Supporting charts
-6. Caveats
-7. Link to the notebook
+4. Data and identification/modeling assumptions
+5. Supporting charts and diagnostics
+6. Sensitivity checks or validation
+7. Caveats
+8. Link to the notebook
 ```
 
 Recommended folder shape:
