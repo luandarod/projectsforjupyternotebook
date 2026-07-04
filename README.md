@@ -11,6 +11,7 @@ The rule is simple: a notebook should not be a loose dump of cells. Each project
 | Project | Theme | Status |
 | --- | --- | --- |
 | [GLP-1 Bayesian pharmacovigilance](notebooks/glp1-bayesian-farmacovigilancia/) | Semaglutide vs Tirzepatide adverse-event reports from openFDA/FAERS, modeled with a Beta-Binomial approach | Published |
+| [Remote work salary premium](notebooks/remote-work-salary-causal-inference/) | Causal inference on whether fully remote data roles still show a salary premium after adjustment | Published |
 
 ## Two serious data science projects to add next
 
@@ -18,8 +19,8 @@ I want the next notebooks to move away from health analytics and show heavier da
 
 | Project idea | Why it works | Main visuals |
 | --- | --- | --- |
-| **Remote work salary premium: causal inference** | A strong labor-market question: after controlling for role, seniority, country, company size, and tech stack, does remote work still carry a salary premium or penalty? This can use matching, inverse probability weighting, doubly robust estimation, quantile effects, and sensitivity checks. | Covariate balance plot, treatment effect with confidence intervals, effect by seniority, salary distribution before/after adjustment |
 | **Market regime detection: crypto or equities** | A proper time-series project: identify market regimes from returns, volatility, drawdown, and volume. This can use Hidden Markov Models, Bayesian change-point detection, GARCH-style volatility features, and out-of-sample regime validation. | Regime-colored price chart, transition matrix heatmap, volatility by regime, drawdown/risk table |
+| **Customer churn survival analysis** | A business-heavy project with real statistical depth: estimate not just who churns, but when risk accelerates. This can use Kaplan-Meier curves, Cox-style hazard modeling, calibration, and cohort-level diagnostics. | Survival curves by segment, hazard ratio plot, calibration curve, churn-risk timeline |
 
 Both should be built as report-style notebooks: one clean narrative, 4 to 6 charts saved as images, model diagnostics, and a README that shows the actual results without making someone open Jupyter first.
 
@@ -73,11 +74,16 @@ For the GLP-1 notebook, the best angle is not "which drug is safer." The cleaner
 ```text
 .
 |-- notebooks/
-|   `-- glp1-bayesian-farmacovigilancia/
+|   |-- glp1-bayesian-farmacovigilancia/
 |       |-- README.md
 |       |-- PROJECT_REVIEW.md
 |       |-- portfolio_glp1_bayesian.ipynb
-|       `-- test_fda_api.py
+|       |-- test_fda_api.py
+|   `-- remote-work-salary-causal-inference/
+|       |-- README.md
+|       |-- remote_work_salary_causal_inference.ipynb
+|       |-- test_data_source.py
+|       `-- assets/
 |-- scripts/
 |   `-- normalize_notebook.py
 |-- requirements.txt

@@ -15,6 +15,10 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
       - name: Run smoke tests
-        run: python notebooks/glp1-bayesian-farmacovigilancia/test_fda_api.py
+        run: |
+          python notebooks/glp1-bayesian-farmacovigilancia/test_fda_api.py
+          python notebooks/remote-work-salary-causal-inference/test_data_source.py
       - name: Validate notebook format
-        run: python scripts/normalize_notebook.py notebooks/glp1-bayesian-farmacovigilancia/portfolio_glp1_bayesian.ipynb --check
+        run: |
+          python scripts/normalize_notebook.py notebooks/glp1-bayesian-farmacovigilancia/portfolio_glp1_bayesian.ipynb --check
+          python scripts/normalize_notebook.py notebooks/remote-work-salary-causal-inference/remote_work_salary_causal_inference.ipynb --check

@@ -1,0 +1,13 @@
+{
+  "raw_rows": 607,
+  "analysis_rows": 486,
+  "remote_rows": 365,
+  "onsite_rows": 121,
+  "propensity_auc": 0.6229706781387976,
+  "naive_pct": 12.550777978427806,
+  "doubly_robust_pct": 2.9600380984958985,
+  "doubly_robust_ci_low": -7.4060922840774035,
+  "doubly_robust_ci_high": 13.330513831319513,
+  "ipw_pct": 10.758298501084607,
+  "matching_pct": 5.971101830474956
+}
