@@ -14,12 +14,12 @@ The rule is simple: a notebook should not be a loose dump of cells. Each project
 
 ## Two simple projects to add next
 
-I want the next notebooks to be easier to read than a full ML repo, but still useful enough to post about. These two fit that shape.
+I want the next notebooks to move away from health analytics. That keeps this repo broader and gives the LinkedIn posts a different flavor from my main portfolio work.
 
 | Project idea | Why it works | Main visuals |
 | --- | --- | --- |
 | **City cost of living snapshot** | Public data, easy story, good for quick comparisons between cities. The report can answer: where does monthly cost concentrate, and what changes if rent or groceries move? | City ranking bar chart, cost breakdown stacked bar, scatter of rent vs total cost |
-| **Heart disease risk explainer** | Small healthcare dataset, clear audience, and a nice bridge between analytics and model interpretation. The report can show which factors separate higher-risk profiles without getting too academic. | Risk distribution, feature importance chart, confusion matrix, threshold tradeoff plot |
+| **Labor market salary snapshot** | Useful for career and business audiences. The report can compare roles, seniority, remote policy, and salary bands without turning into a complex ML project. | Salary distribution, role ranking, remote vs onsite comparison, seniority heatmap |
 
 Both should be built as report-style notebooks: one clean narrative, 3 to 5 charts saved as images, and a README that shows the actual results without making someone open Jupyter first.
 
