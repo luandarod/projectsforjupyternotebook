@@ -6,6 +6,7 @@ import nbformat
 
 
 def normalize_notebook(path, check=False):
+    """Strip saved cell output so notebook diffs stay reviewable."""
     notebook = nbformat.read(path, as_version=4)
     changed = False
 
@@ -18,13 +19,13 @@ def normalize_notebook(path, check=False):
 
     nbformat.validate(notebook)
     if check and changed:
-        print(f"Notebook has outputs or execution counts: {path}", file=sys.stderr)
+        print(f"Notebook still has saved outputs or execution counts: {path}", file=sys.stderr)
         return 1
     if not check:
         nbformat.write(notebook, path)
-        print(f"Notebook validated and normalized: {path}")
+        print(f"Notebook cleaned and validated: {path}")
     else:
-        print(f"Notebook is clean and valid: {path}")
+        print(f"Notebook is clean: {path}")
     return 0
 
 

@@ -10,6 +10,7 @@ DRUGS = ("SEMAGLUTIDE", "TIRZEPATIDE")
 
 
 def fetch_seriousness_counts(drug_name):
+    """Fetch the two counts the notebook depends on: serious and non-serious reports."""
     params = {
         "search": (
             f'patient.drug.medicinalproduct:"{drug_name}" '
@@ -25,6 +26,7 @@ def fetch_seriousness_counts(drug_name):
 
 
 def test_openfda_seriousness_endpoint():
+    """Fail fast if openFDA changes shape or stops returning the expected fields."""
     for drug_name in DRUGS:
         counts, meta = fetch_seriousness_counts(drug_name)
         assert meta.get("last_updated"), f"{drug_name}: missing last_updated metadata"
@@ -40,5 +42,5 @@ if __name__ == "__main__":
         rate = counts.get(1, 0) / total
         print(
             f"{drug_name}: {counts.get(1, 0)} serious / {total} total "
-            f"({rate:.1%}); openFDA last_updated={meta.get('last_updated')}"
+            f"({rate:.1%}), openFDA last_updated={meta.get('last_updated')}"
         )

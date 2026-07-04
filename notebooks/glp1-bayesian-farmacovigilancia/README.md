@@ -1,30 +1,32 @@
-# GLP-1 Bayesian Pharmacovigilance
+# GLP-1 Bayesian pharmacovigilance
 
-Analise Bayesiana de relatos adversos do openFDA/FAERS comparando Semaglutida e Tirzepatida desde janeiro de 2024.
+This notebook looks at openFDA/FAERS adverse-event reports for Semaglutide and Tirzepatide from January 2024 onward.
 
-## Objetivo
+The point is not to claim that one drug is clinically safer than the other. FAERS is not built for that. The point is narrower: among the reports available in openFDA, how different is the share of reports marked as serious?
 
-Estimar, entre os relatos espontaneos disponiveis, a probabilidade de a proporcao de notificacoes graves ser maior para Semaglutida do que para Tirzepatida.
+## Question
 
-## Fonte de dados
+Using a simple Bayesian Beta-Binomial model, the notebook estimates the probability that Semaglutide has a higher serious-report proportion than Tirzepatide in this reporting window.
+
+## Data
 
 - API: openFDA Drug Adverse Event API
-- Campo temporal: `receiptdate`
-- Campo de gravidade: `serious`
-- Janela: de `20240101` ate a data de execucao
+- Date field: `receiptdate`
+- Seriousness field: `serious`
+- Window: `20240101` through the day the notebook is run
 
-## Arquivos
+## Files
 
-- `portfolio_glp1_bayesian.ipynb`: notebook principal limpo, sem outputs pesados.
-- `test_fda_api.py`: smoke test da API e dos campos essenciais.
+- `portfolio_glp1_bayesian.ipynb`: the clean notebook, committed without heavy outputs.
+- `test_fda_api.py`: a small smoke test for the API response and the fields used by the notebook.
 
-## Como validar
+## Run it
 
 ```bash
 python test_fda_api.py
 jupyter nbconvert --to notebook --execute portfolio_glp1_bayesian.ipynb --output portfolio_glp1_bayesian_executed.ipynb
 ```
 
-## Limitacoes
+## Caveats
 
-FAERS/openFDA contem notificacoes espontaneas. A analise e adequada para sinalizacao e priorizacao de investigacao, mas nao estima incidencia populacional, nao controla exposicao e nao prova causalidade clinica.
+FAERS/openFDA contains spontaneous reports. There is no patient denominator here, no exposure adjustment, and no causal design. Treat this as signal work: useful for deciding what deserves a closer look, not for making a clinical claim by itself.

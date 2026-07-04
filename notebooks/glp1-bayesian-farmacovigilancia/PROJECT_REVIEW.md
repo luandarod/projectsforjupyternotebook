@@ -1,34 +1,33 @@
-# Revisao do Projeto: GLP-1 Bayesian Pharmacovigilance
+# Project review: GLP-1 Bayesian pharmacovigilance
 
-## O que esta bom
+## What works
 
-- Tema forte para portfolio: combina saude, dados publicos, estatistica Bayesiana e comunicacao executiva.
-- Notebook agora roda de ponta a ponta com dados reais do openFDA.
-- O resultado estatistico e apresentado como probabilidade direta, o que facilita decisao executiva.
-- O notebook inclui limitacoes metodologicas importantes sobre FAERS/openFDA.
+- The topic has a real hook: GLP-1 drugs, public safety reports, and Bayesian uncertainty in one notebook.
+- The notebook runs against live openFDA data instead of a frozen sample.
+- The result is easy to read because it answers a probability question instead of stopping at a p-value.
+- The caveats are now visible. That matters here because FAERS data is easy to overread.
 
-## Melhorias feitas
+## What changed
 
-- Adicionado tratamento de erro e timeout nas chamadas da API.
-- Janela de coleta atualizada dinamicamente ate a data de execucao.
-- Incluido `last_updated` retornado pela openFDA.
-- Adicionados intervalos crediveis e simulacao Monte Carlo reproduzivel.
-- Criado smoke test da API com asserts.
-- Corrigido o gerador/normalizador para evitar sobrescrever o notebook com texto corrompido.
-- Notebook limpo para versionamento, sem outputs pesados.
+- API calls now use a timeout and fail loudly when the response is not usable.
+- The end date follows the day the notebook runs.
+- The notebook prints the `last_updated` value returned by openFDA.
+- Posterior summaries include 95% credible intervals.
+- The Monte Carlo step uses a fixed random seed.
+- `test_fda_api.py` checks that the endpoint still returns serious and non-serious counts.
+- The committed notebook is clean, so Git diffs stay readable.
 
-## Melhorias recomendadas para uma proxima iteracao
+## Next pass
 
-- Separar codigo reutilizavel em um modulo Python quando houver mais notebooks no repo.
-- Adicionar `Makefile` ou `noxfile.py` para comandos padronizados: instalar, testar, executar notebook, limpar outputs.
-- Criar um template unico de README para cada notebook: problema, dados, metodologia, resultado, limitacoes, como rodar.
-- Salvar imagens estaticas leves dos graficos principais em `assets/` para preview no GitHub.
-- Usar `nbstripout` ou um check simples de CI para impedir outputs grandes em notebooks versionados.
-- Adicionar GitHub Actions para rodar smoke tests e validar notebooks a cada push.
+- Move repeated notebook code into a small Python module once there is a second project using the same pattern.
+- Add a `Makefile` if the command list grows past three or four lines.
+- Save one lightweight chart image in `assets/` so the GitHub page has a quick visual preview.
+- Consider `nbstripout` later. The current `normalize_notebook.py` is enough for now.
+- Keep the GitHub Action small. It should catch broken notebooks, not become a second project.
 
-## Riscos metodologicos que devem continuar explicitos
+## Caveats to keep
 
-- FAERS/openFDA nao mede incidencia populacional.
-- Nao ha denominador de pacientes expostos.
-- Relatos espontaneos sofrem vies de notoriedade, subnotificacao, duplicidade e severidade percebida.
-- O resultado e sinal de farmacovigilancia, nao conclusao causal clinica.
+- FAERS/openFDA does not measure population incidence.
+- There is no denominator for exposed patients.
+- Spontaneous reports are shaped by notoriety, underreporting, duplicates, and perceived severity.
+- The result is a pharmacovigilance signal. It is not a clinical causal conclusion.
