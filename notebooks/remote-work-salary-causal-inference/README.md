@@ -1,28 +1,32 @@
 # Remote work salary premium: causal inference
 
-Remote data-science jobs look better paid in the raw data. The causal question is whether that premium survives after comparing similar roles, seniority levels, company markets, employee markets, company sizes, and years.
+Remote jobs look richer in this dataset. The first pass says fully remote data roles pay about **12.1%** more than onsite roles.
 
-This project treats fully remote work as the exposure and salary as the outcome. The notebook estimates the effect with cross-fitted nuisance models, inverse probability weighting, propensity-score matching, partial-linear DML, and a doubly robust AIPW estimator.
+That number is tempting. I do not trust it on its own.
+
+The notebook treats remote work as the exposure and salary as the outcome, then asks a narrower question: after matching roles on year, seniority, job family, company market, employee market, and company size, is there still much of a salary premium left?
 
 ![Estimated remote salary effects](assets/01_effect_estimates.png)
 
 ## Result
 
-- Raw comparison: fully remote roles show a **+12.1%** salary difference.
-- Cross-fit doubly robust estimate: the adjusted effect falls to **+2.4%**.
+- Raw salary gap: **+12.1%** for fully remote roles.
+- Cross-fit AIPW estimate: **+2.4%** after adjustment.
 - 95% influence-function interval: **-8.2% to +14.2%**.
-- Trimmed doubly robust estimate after overlap filtering: **+2.5%**.
-- Only **6 rows** are removed by common-support and propensity trimming.
+- Trimmed AIPW estimate, after overlap filtering: **+2.5%**.
+- Rows removed by common-support and propensity trimming: **6**.
 
-The read is simple, but important: the visible remote salary premium is mostly a composition story in this dataset. Once the model adjusts for observed differences, the estimated effect becomes small and statistically uncertain.
+My read: the raw premium mostly comes from who gets counted in each group. Remote roles in this file are not a clean random slice of the market. Once the comparison adjusts for visible job and market differences, the estimate gets small and noisy.
 
 ## Causal Setup
 
-The estimand is the average treatment effect of fully remote work on log salary:
+The target estimand is the average treatment effect of fully remote work on log salary.
 
-`E[Y(1) - Y(0)]`, where `Y(1)` is salary if the role is fully remote and `Y(0)` is salary if the role is onsite.
+`E[Y(1) - Y(0)]`
 
-The identifying assumption is conditional exchangeability: after adjusting for the observed covariates, remote and onsite roles are comparable enough to estimate a treatment effect. That assumption is not directly testable, so the notebook reports overlap, balance, effective sample size, and omitted-confounder sensitivity.
+Here, `Y(1)` is salary if the role is fully remote and `Y(0)` is salary if the same kind of role were onsite. The hard assumption is conditional exchangeability: after the observed controls, remote and onsite rows are comparable enough to line up.
+
+That assumption can be wrong. So the notebook checks overlap, balance, effective sample size, and a simple omitted-confounder tipping point.
 
 ![Causal DAG](assets/00_causal_dag.png)
 
@@ -35,9 +39,9 @@ The identifying assumption is conditional exchangeability: after adjusting for t
 - Onsite rows: `122`
 - Treatment: `remote_ratio == 100`
 - Control: `remote_ratio == 0`
-- Excluded: hybrid roles and extreme salary records outside the project filter
+- Dropped from the causal contrast: hybrid rows and salary records outside the project filter
 
-The outcome is log salary in USD. The adjustment set uses only variables available before the salary outcome is observed:
+The outcome is log salary in USD. The adjustment set stays small on purpose:
 
 - work year
 - experience level
@@ -48,70 +52,57 @@ The outcome is log salary in USD. The adjustment set uses only variables availab
 
 ## Method
 
-The main estimate is cross-fitted AIPW. Each row receives out-of-sample predictions for:
+The main estimate is cross-fitted AIPW. Each row gets out-of-sample estimates for its propensity score, expected salary if remote, and expected salary if onsite.
 
-- treatment probability, also called the propensity score
-- expected salary if remote
-- expected salary if onsite
+Cross-fitting matters here because the dataset is small. If the same rows train and evaluate every nuisance model, the treatment effect can look cleaner than it is.
 
-Cross-fitting is useful here because it reduces overfitting in the nuisance models before the treatment effect is estimated.
-
-The notebook also reports:
-
-- naive difference in mean log salary
-- regression adjustment
-- Hajek inverse probability weighting
-- nearest-neighbor matching on propensity score
-- partial-linear double machine learning
-- trimmed AIPW within common support
+I also report regression adjustment, Hajek IPW, nearest-neighbor propensity matching, partial-linear DML, and a trimmed AIPW estimate inside common support. They tell the same story: the big raw gap shrinks fast.
 
 ## Diagnostics
 
 ![Propensity overlap](assets/02_propensity_overlap.png)
 
-The overlap is usable. The model does not find a clean separation between remote and onsite roles, which is good for causal comparison. The cross-fitted propensity AUC is **0.58**, and the effective sample size is about **370 remote** and **106 onsite** rows after weighting.
+The overlap is usable. The cross-fitted propensity AUC is **0.58**, so the model does not cleanly separate remote from onsite roles. That is good for this comparison. After weighting, the effective sample size is about **370 remote** and **106 onsite** rows.
 
 ![Covariate balance](assets/03_covariate_balance.png)
 
-Weighting reduces the largest observed imbalances, especially the market and seniority differences that make the raw salary comparison misleading. This does not fix unobserved confounding, but it makes the observed comparison more honest.
+Weighting pulls down the biggest observed imbalances, especially market and seniority differences. It does not solve company brand, negotiation skill, equity, or applicant quality. Those are still missing.
 
 ![Effect by seniority](assets/04_effect_by_seniority.png)
 
-The effect is not stable across seniority levels. Some slices are small, so the subgroup results are best read as heterogeneity diagnostics rather than firm claims.
+The seniority slices move around. Some cells are thin, so I treat this as a heterogeneity check rather than a firm subgroup claim.
 
 ![Raw salary distribution](assets/05_raw_salary_distribution.png)
 
-The raw distribution explains why the question is tempting: remote roles look shifted upward. The causal estimates show why that visual comparison is too quick.
+The raw distribution explains why the question is worth asking. Remote rows sit higher. The causal estimates explain why the plot is not enough.
 
 ![Sensitivity to omitted confounding](assets/06_sensitivity_tipping_point.png)
 
-The adjusted estimate is small enough that a modest omitted factor could erase it. A hidden variable with a combined log-salary effect times prevalence imbalance of about **0.024** would be enough to move the AIPW estimate to zero. That is the main limitation of the study.
+The adjusted estimate is small. A hidden factor with a combined log-salary effect times prevalence gap of about **0.024** would push the AIPW estimate to zero. That is not a huge amount of missing structure.
 
 ## Interpretation
 
-The result does not prove that remote work has no value. It says that, in this observational dataset, the salary premium visible in the raw data is not robust once role composition and market structure are adjusted.
+This does not mean remote work has no value. It means this dataset does not support a large causal salary premium after adjustment.
 
-The most defensible conclusion is:
-
-> Fully remote data-science roles look better paid at first glance, but the adjusted evidence points to a small, uncertain premium rather than a large causal effect.
+The cleanest sentence I can defend is this: fully remote data-science roles look better paid in the raw file, but the adjusted estimate points to a small, uncertain premium.
 
 ## Method Notes
 
-This project follows a standard observational causal-inference workflow: define treatment and outcome, choose a pre-treatment adjustment set, estimate propensity and outcome models, check overlap and balance, then report a doubly robust effect with uncertainty.
+The workflow is the usual observational causal path: define treatment and outcome, choose pre-treatment controls, estimate propensity and outcome models, check balance and overlap, then report an AIPW effect with uncertainty.
 
-The result is also consistent with recent research on work-from-home wage premiums: raw or lightly adjusted differences can shrink substantially once worker selection, role quality, and job composition are considered.
+The result also lines up with recent work-from-home wage research, where raw premiums shrink once worker selection, role quality, and job composition enter the model.
 
-Useful references:
+References I had in mind while building this:
 
-- Chernozhukov et al., double/debiased machine learning for treatment effects
-- Robins, Rotnitzky, and Zhao, augmented inverse probability weighting
-- Recent Federal Reserve research on work-from-home wage premiums
+- Chernozhukov et al. on double/debiased machine learning
+- Robins, Rotnitzky, and Zhao on augmented inverse probability weighting
+- Recent Federal Reserve work on work-from-home wage premiums
 
 ## Caveats
 
-This is observational salary data, not an experiment. The estimate does not adjust for company brand, exact city, negotiation strength, equity, benefits, team scope, applicant quality, or whether remote work was chosen by the worker or required by the employer.
+This is observational salary data. The file does not know company brand, exact city, equity, benefits, negotiation strength, team scope, applicant quality, or whether remote work was chosen by the worker.
 
-The project should be read as a causal-analysis portfolio report, not as a labor-market law.
+I read this as a causal-analysis portfolio report, not a labor-market rule.
 
 ## Files
 
