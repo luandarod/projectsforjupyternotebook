@@ -1,0 +1,11 @@
+{
+  "data_start": "2024-01-31",
+  "data_end": "2026-07-06",
+  "btc_rows": 888,
+  "selected_regimes": 5,
+  "latest_regime": "Sideways / low momentum",
+  "latest_regime_probability": 0.9984965342844723,
+  "latest_btc_close": 63686.01,
+  "median_assignment_probability": 0.9501569471947247,
+  "tail_median_assignment_probability": 0.9504573470144514
+}
