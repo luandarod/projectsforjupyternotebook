@@ -13,16 +13,17 @@ The rule is simple: a notebook should not be a loose dump of cells. Each project
 | [GLP-1 Bayesian pharmacovigilance](notebooks/glp1-bayesian-farmacovigilancia/) | Semaglutide vs Tirzepatide adverse-event reports from openFDA/FAERS, modeled with a Beta-Binomial approach | Published |
 | [Remote work salary premium](notebooks/remote-work-salary-causal-inference/) | Causal inference on whether fully remote data roles still show a salary premium after adjustment | Published |
 | [Crypto market regime detection](notebooks/crypto-market-regime-detection/) | Recent BTC/ETH Binance data segmented into volatility, drawdown, and momentum regimes | Published |
+| [Brazil inflation and monetary regimes](notebooks/brazil-inflation-monetary-regimes/) | BCB/SGS macro series used to identify inflation-pressure regimes with a literature-backed feature set | Published |
 
-## Two serious data science projects to add next
+## Project ideas still worth adding
 
-I want the next notebooks to move away from health analytics and show heavier data science work: causal questions, uncertainty, model diagnostics, and results that can be defended.
+The published notebooks already cover causal inference, financial regimes, and Brazilian macro regimes. A business-survival project would round out the portfolio with time-to-event modeling.
 
 | Project idea | Why it works | Main visuals |
 | --- | --- | --- |
 | **Customer churn survival analysis** | A business-heavy project with real statistical depth: estimate not just who churns, but when risk accelerates. This can use Kaplan-Meier curves, Cox-style hazard modeling, calibration, and cohort-level diagnostics. | Survival curves by segment, hazard ratio plot, calibration curve, churn-risk timeline |
 
-Both should be built as report-style notebooks: one clean narrative, 4 to 6 charts saved as images, model diagnostics, and a README that shows the actual results without making someone open Jupyter first.
+New projects should keep the same report shape: one clean narrative, charts saved as images, model diagnostics, and a README that shows the actual results without making someone open Jupyter first.
 
 ## README-report format
 
@@ -75,19 +76,25 @@ For the GLP-1 notebook, the best angle is not "which drug is safer." The cleaner
 .
 |-- notebooks/
 |   |-- glp1-bayesian-farmacovigilancia/
+|   |   |-- README.md
+|   |   |-- PROJECT_REVIEW.md
+|   |   |-- portfolio_glp1_bayesian.ipynb
+|   |   `-- test_fda_api.py
+|   |-- remote-work-salary-causal-inference/
+|   |   |-- README.md
+|   |   |-- remote_work_salary_causal_inference.ipynb
+|   |   |-- test_data_source.py
+|   |   `-- assets/
+|   |-- crypto-market-regime-detection/
+|   |   |-- README.md
+|   |   |-- crypto_market_regime_detection.ipynb
+|   |   |-- test_binance_market_data.py
+|   |   `-- assets/
+|   `-- brazil-inflation-monetary-regimes/
 |       |-- README.md
-|       |-- PROJECT_REVIEW.md
-|       |-- portfolio_glp1_bayesian.ipynb
-|       |-- test_fda_api.py
-|   `-- remote-work-salary-causal-inference/
-|       |-- README.md
-|       |-- remote_work_salary_causal_inference.ipynb
-|       |-- test_data_source.py
-|       `-- assets/
-|   `-- crypto-market-regime-detection/
-|       |-- README.md
-|       |-- crypto_market_regime_detection.ipynb
-|       |-- test_binance_market_data.py
+|       |-- LITERATURE_REVIEW.md
+|       |-- brazil_inflation_monetary_regimes.ipynb
+|       |-- test_bcb_api.py
 |       `-- assets/
 |-- scripts/
 |   `-- normalize_notebook.py
