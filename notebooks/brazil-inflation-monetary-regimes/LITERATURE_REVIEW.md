@@ -2,65 +2,65 @@
 
 Generated: 2026-07-06  
 Review type: scoping review  
-Scope: inflation targeting, exchange-rate pass-through, monetary policy rules, and regime methods  
+Scope: inflation targeting, exchange-rate pass-through, policy rules and regime methods  
 
 ## Research Question
 
-How can public Brazilian macro series be used to identify inflation-pressure regimes after the adoption of inflation targeting, and how should those regimes be interpreted given the literature on credibility, exchange-rate pass-through, and monetary policy reaction functions?
+Can public Brazilian macro series be used to map inflation-pressure regimes after the adoption of inflation targeting? And once the regimes are estimated, how much caution should we bring from the literature on credibility, exchange-rate pass-through and monetary-policy reaction functions?
 
 ## Search Strategy
 
-The search focused on peer-reviewed papers, central-bank working papers, NBER material, and official data documentation.
+I kept the search narrow. The notebook is not trying to review all Brazilian macroeconomics. It needs enough literature to justify the variables and the interpretation.
 
-| Source | Date searched | Query | Screened use |
+| Source | Date searched | Query | Why it stayed in |
 | --- | --- | --- | --- |
-| Banco Central do Brasil / RePEc | 2026-07-06 | `Implementing Inflation Targeting in Brazil Bogdanski Tombini Werlang` | inflation-targeting institutional setup |
-| Journal of International Money and Finance / BCB | 2026-07-06 | `Inflation Targeting in Brazil constructing credibility exchange rate volatility Minella Freitas Goldfajn Muinhos` | credibility, expectations, pass-through |
-| NBER / IDEAS | 2026-07-06 | `exchange rate pass-through inflation targeting emerging markets Edwards` | exchange-rate pass-through under inflation targeting |
-| Econometrica / JSTOR | 2026-07-06 | `Hamilton 1989 regime switching nonstationary time series` | regime-switching motivation |
-| Carnegie-Rochester / Stanford | 2026-07-06 | `Taylor 1993 Discretion versus policy rules in practice` | policy-rule framing |
-| AEA / NBER | 2026-07-06 | `Clarida Gali Gertler 1999 science of monetary policy` | inflation targeting and policy-rule background |
+| Banco Central do Brasil / RePEc | 2026-07-06 | `Implementing Inflation Targeting in Brazil Bogdanski Tombini Werlang` | institutional setup of the inflation-targeting regime |
+| Journal of International Money and Finance / BCB | 2026-07-06 | `Inflation Targeting in Brazil constructing credibility exchange rate volatility Minella Freitas Goldfajn Muinhos` | Brazil-specific credibility, expectations and pass-through |
+| NBER / IDEAS | 2026-07-06 | `exchange rate pass-through inflation targeting emerging markets Edwards` | cross-country pass-through under inflation targeting |
+| Econometrica / JSTOR | 2026-07-06 | `Hamilton 1989 regime switching nonstationary time series` | the original regime-switching frame |
+| Carnegie-Rochester / Stanford | 2026-07-06 | `Taylor 1993 Discretion versus policy rules in practice` | simple policy-rule logic |
+| AEA / NBER | 2026-07-06 | `Clarida Gali Gertler 1999 science of monetary policy` | inflation targeting, commitment and policy reaction |
 | BCB Open Data | 2026-07-06 | `BCData SGS API formato json dataInicial dataFinal` | data access and reproducibility |
 
-## Inclusion Criteria
+## What I Included
 
-- Brazil-specific inflation targeting or monetary policy papers
-- exchange-rate pass-through papers relevant to inflation-targeting economies
-- core regime-switching or policy-rule references
+- Brazil-specific work on inflation targeting or monetary policy
+- papers on exchange-rate pass-through in inflation-targeting economies
+- core references on regime-switching and policy rules
 - official documentation for the BCB/SGS data source
 
-## Exclusion Criteria
+I left out market commentary, unnamed sources, and papers that were only about fiscal policy, labor markets or credit without a clear inflation-policy link.
 
-- market commentary without methodology
-- sources without identifiable author, institution, or publication venue
-- papers focused only on fiscal policy, credit, or labor markets without an inflation-policy link
+## Evidence Notes
 
-## Evidence Summary
-
-| Study | Design | Data / Scope | Method | What I used it for | Limitation |
+| Study | Design | Data / Scope | Method | How it shaped the notebook | Main limit |
 | --- | --- | --- | --- | --- | --- |
-| Bogdanski, Tombini & Werlang (2000) | central-bank working paper | early Brazilian inflation targeting | institutional and policy framework | why IPCA and Selic belong at the center of the project | early regime period |
-| Minella, Freitas, Goldfajn & Muinhos (2003) | academic / central-bank empirical paper | Brazil after 1999 inflation targeting | empirical assessment of credibility, expectations, persistence, pass-through | why exchange-rate volatility and credibility matter in Brazil | focuses on early years of inflation targeting |
-| Edwards (2006) | NBER working paper | inflation-targeting countries | exchange-rate pass-through analysis | why pass-through is a natural diagnostic in open economies | cross-country scope, not Brazil-only |
-| Hamilton (1989) | econometric theory paper | macro time series | Markov regime-switching model | motivation for thinking in regimes rather than one constant macro state | the notebook uses GMM, not a Hamilton Markov model |
-| Taylor (1993) | monetary policy paper | policy-rule framework | simple policy-rule reasoning | why inflation and interest-rate reaction belong together | not Brazil-specific |
-| Clarida, Gali & Gertler (1999) | literature review / theory | New Keynesian monetary policy | policy-rule and credibility framework | macro background for inflation targeting | theoretical, not an applied Brazil notebook |
-| BCB SGS documentation | official data documentation | Brazilian time series | public JSON API | data source and reproducibility | API limits require chunked calls for long daily series |
+| Bogdanski, Tombini & Werlang (2000) | central-bank working paper | early Brazilian inflation targeting | institutional and policy description | anchors IPCA and Selic as the core variables | early regime period |
+| Minella, Freitas, Goldfajn & Muinhos (2003) | empirical paper | Brazil after 1999 | credibility, expectations, persistence, pass-through | motivates exchange-rate volatility and credibility as part of the feature set | mostly early inflation-targeting years |
+| Edwards (2006) | NBER working paper | inflation-targeting countries | pass-through comparison | keeps the FX coefficient from being read mechanically | cross-country, not Brazil-only |
+| Hamilton (1989) | econometric theory paper | macro time series | Markov regime-switching | motivates looking for states instead of one average relationship | the notebook uses GMM, not a Hamilton model |
+| Taylor (1993) | monetary policy paper | policy-rule framework | rule-based policy reasoning | links inflation and interest-rate reaction | not Brazil-specific |
+| Clarida, Gali & Gertler (1999) | theory / review | New Keynesian monetary policy | policy-rule and credibility framework | background for inflation targeting and commitment | theoretical |
+| BCB SGS documentation | official documentation | Brazilian time series | public JSON API | source for the data pipeline | long daily series need chunked calls |
 
 ## Synthesis
 
-Brazil's inflation-targeting literature treats credibility, exchange-rate volatility, and monetary-policy reaction as connected. That shaped the feature set. IPCA measures the target variable, Selic is the policy instrument, USD/BRL captures an open-economy shock channel, and the ex-post real rate gives a rough measure of policy tightness.
+The Brazil papers treat inflation targeting as a credibility problem as much as a price-index problem. That is why the notebook does not stop at IPCA. It brings in Selic, USD/BRL and an ex-post real policy rate. Those are rough variables, but they map cleanly to the questions in Bogdanski et al. and Minella et al.
 
-The pass-through literature argues against reading FX moves mechanically. Exchange-rate depreciation can matter for inflation, but the coefficient changes with credibility, policy reaction, administered prices, and the state of the economy. For that reason, the notebook uses a rolling pass-through regression as a diagnostic signal, not a causal estimate.
+The pass-through papers are the main warning label. A weaker exchange rate can feed inflation, but the coefficient is not stable across time or policy environments. In the notebook, the 60-month rolling regression is deliberately modest. It is a moving diagnostic, not a causal claim.
 
-The regime literature gives the project its modeling frame. A single average relationship is a poor summary of Brazil's macro history since 2002. The notebook uses GMM instead of a full Markov-switching model because it keeps the project transparent and dependency-light, but the interpretation borrows the same caution: regimes are latent labels, not observed truth.
+Hamilton gives the modeling intuition: macro relationships can switch states. I did not implement a full Markov-switching model here because the portfolio version needs to stay light and readable. GMM is easier to inspect, easier to rerun, and honest enough for a first regime map.
 
-## Gaps and Limitations
+## Gaps
 
-- The notebook does not include inflation expectations, output gap, fiscal variables, commodity prices, administered prices, credit, or survey data.
-- The pass-through regression is reduced-form and rolling. It should not be read as structural causality.
-- GMM assigns regimes by feature distribution but does not model transition probabilities the way a hidden Markov model would.
-- The latest IPCA observation limits the data end date. Daily BCB series may be newer than monthly inflation.
+- No inflation expectations.
+- No output gap.
+- No fiscal series.
+- No administered-price split.
+- No commodity shocks, credit cycle or survey data.
+- No full hidden Markov model.
+
+Those omissions matter. The report still works as a compact macro notebook, but a central-bank-style model would need a much wider panel.
 
 ## References
 
