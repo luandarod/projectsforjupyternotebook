@@ -1,6 +1,6 @@
 # LinkedIn post draft
 
-Visual: `assets/linkedin_glp1_minimal_card.png`
+Visual: `assets/linkedin_glp1_bayesian_quiet.png`
 
 Project link: https://github.com/luandarodrigues/projectsforjupyternotebook/tree/main/notebooks/glp1-bayesian-farmacovigilancia
 
@@ -24,7 +24,7 @@ https://github.com/luandarodrigues/projectsforjupyternotebook/tree/main/notebook
 
 ## Visual plan
 
-Use `assets/linkedin_glp1_minimal_card.png` como imagem única no primeiro post.
+Use `assets/linkedin_glp1_bayesian_quiet.png` como imagem única no primeiro post.
 
 Para um carrossel depois, eu faria quatro telas:
 
