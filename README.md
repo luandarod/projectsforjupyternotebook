@@ -21,7 +21,7 @@ The published notebooks already cover causal inference, financial regimes, and B
 
 | Project idea | Why it works | Main visuals |
 | --- | --- | --- |
-| **Customer churn survival analysis** | A business-heavy project with real statistical depth: estimate not just who churns, but when risk accelerates. This can use Kaplan-Meier curves, Cox-style hazard modeling, calibration, and cohort-level diagnostics. | Survival curves by segment, hazard ratio plot, calibration curve, churn-risk timeline |
+| **Customer churn survival analysis** | A business-heavy project with real statistical depth: estimate churn timing and where the risk curve accelerates. This can use Kaplan-Meier curves, Cox-style hazard modeling, calibration, and cohort-level diagnostics. | Survival curves by segment, hazard ratio plot, calibration curve, churn-risk timeline |
 
 New projects should keep the same report shape: one clean narrative, charts saved as images, model diagnostics, and a README that shows the actual results without making someone open Jupyter first.
 
